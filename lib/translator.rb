@@ -1,22 +1,21 @@
 require 'pry'
 class Translator
 
-  def morse_lookup
+  def build_dictionary(first, last)
     alphabet = {}
     File.open('./data/morse_alphabet.txt', 'r').each do |line|
       characters = line.chomp.split(' ')
-      alphabet[characters.first] = characters.last
+      alphabet[characters[first]] = characters[last]
     end
     alphabet
   end
 
+  def morse_lookup
+    build_dictionary(0,1)
+  end
+
   def eng_lookup
-    alphabet = {}
-    File.open('./data/morse_alphabet.txt', 'r').each do |line|
-      characters = line.chomp.split(' ')
-      alphabet[characters.last] = characters.first
-    end
-    alphabet
+    build_dictionary(1,0)
   end
 
   def translate(letters, dictionary)
